@@ -1,0 +1,13 @@
+<?xml version="1.0" ?>
+<synthetic xmlns="http://www.xebialabs.com/deployit/synthetic">
+
+	<type type="fleet.DeployedUnit" extends="udm.BaseDeployedArtifact"
+		deployable-type="fleet.UnitConfigurationFile" container-type="overthere.SshHost"
+		description="Adds steps to submit, load and start a unit in the CoreOS cluster">
+		<generate-deployable type="fleet.UnitConfigurationFile" extends="udm.BaseDeployableFileArtifact" />
+		<property name="numberOfInstances" kind="integer" required="true" default="1" description="Specify the number of instances to deploy" />
+		<property name="startUnit" kind="boolean" required="false" default="true" description="Start unit" />
+	</type>
+
+</synthetic>
+

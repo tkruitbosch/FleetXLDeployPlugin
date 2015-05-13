@@ -1,0 +1,41 @@
+<?xml version="1.0"?>
+<!--
+    Note: If you modify this file and automatic reloading is disabled in `planner.conf`, you must restart the XL Deploy server.
+-->
+<rules xmlns="http://www.xebialabs.com/xl-deploy/xl-rules">
+  
+  <rule name="fleet.DeployedUnit.CREATE" scope="deployed">
+        <conditions>
+            <type>fleet.DeployedUnit</type>
+            <operation>CREATE</operation>
+            </conditions>
+        <steps>
+    		<os-script>
+				<order>50</order>
+				<upload-artifacts>true</upload-artifacts>
+				<description expression="true">"Submit fleet configuration file %s" % deployed.deployable.file.name</description>
+    			<script>scripts/submit-unit</script>
+    		</os-script>
+			<os-script>
+				<order>60</order>
+				<description expression="true">"Load fleet configuration file %s" % deployed.deployable.file.name</description>
+				<script>scripts/load-unit</script>
+    		</os-script>
+    	</steps>
+    </rule>
+	<rule name="fleet.DeployedUnit_START.CREATE" scope="deployed">
+        <conditions>
+            <type>fleet.DeployedUnit</type>
+            <operation>CREATE</operation>
+			<expression>deployed.startUnit != False</expression>
+        </conditions>
+        <steps>
+    		<os-script>
+				<order>70</order>
+				<description expression="true">"Start fleet configuration file %s" % deployed.deployable.file.name</description>
+				<script>scripts/start-unit</script>
+    		</os-script>
+    	</steps>
+    </rule>
+  
+</rules>
