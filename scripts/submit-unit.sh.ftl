@@ -1,6 +1,6 @@
 #!/bin/bash
 
-CONTAINERNAME=${deployed.container.name}
+CONTAINERNAME="${deployed.container.name}"
 DEPLOYFILE=${deployed.deployable.file.name}
 INSTANCES=${deployed.numberOfInstances}
 

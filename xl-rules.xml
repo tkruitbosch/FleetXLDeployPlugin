@@ -4,10 +4,11 @@
 -->
 <rules xmlns="http://www.xebialabs.com/xl-deploy/xl-rules">
   
-  <rule name="fleet.DeployedUnit.CREATE" scope="deployed">
+  <rule name="fleet.DeployedUnit.CREATE_MODIFY" scope="deployed">
         <conditions>
             <type>fleet.DeployedUnit</type>
             <operation>CREATE</operation>
+			<operation>MODIFY</operation>
             </conditions>
         <steps>
     		<os-script>
@@ -37,5 +38,34 @@
     		</os-script>
     	</steps>
     </rule>
+	<rule name="fleet.DeployedUnit.DESTROY_MODIFY" scope="deployed">
+        <conditions>
+            <type>fleet.DeployedUnit</type>
+            <operation>DESTROY</operation>
+			<operation>MODIFY</operation>
+            </conditions>
+        <steps>
+    		<os-script>
+				<order>10</order>
+				<description expression="true">"destroy fleet unit %s" % deployed.deployable.file.name</description>
+				<script>scripts/destroy-unit</script>
+    		</os-script>
+    	</steps>
+    </rule>
+	<rule name="fleet.DeployedUnit_START.MODIFY" scope="deployed">
+        <conditions>
+            <type>fleet.DeployedUnit</type>
+            <operation>MODIFY</operation>
+			<expression>deployed.startUnit != False</expression>
+        </conditions>
+        <steps>
+    		<os-script>
+				<order>70</order>
+				<description expression="true">"Restarting fleet configuration file %s" % deployed.deployable.file.name</description>
+				<script>scripts/restart-unit</script>
+    		</os-script>
+    	</steps>
+    </rule>
+	
   
 </rules>
