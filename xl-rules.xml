@@ -38,12 +38,11 @@
     		</os-script>
     	</steps>
     </rule>
-	<rule name="fleet.DeployedUnit.DESTROY_MODIFY" scope="deployed">
+	<rule name="fleet.DeployedUnit.DESTROY" scope="deployed">
         <conditions>
             <type>fleet.DeployedUnit</type>
             <operation>DESTROY</operation>
-			<operation>MODIFY</operation>
-            </conditions>
+        </conditions>
         <steps>
     		<os-script>
 				<order>10</order>

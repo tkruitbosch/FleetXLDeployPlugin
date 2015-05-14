@@ -86,7 +86,7 @@ function restart_all_active_units() {
 
 echo "$(date +"%Y-%m-%d %T") INFO Restarting unit: $DEPLOYFILE on cluster container $CONTAINERNAME"
 restart_all_active_units $DEPLOYFILE
-if $? > 0 ; then
+if [ $? != 0 ] ; then
 	exit $?
 fi
 start_all_inactive_units $DEPLOYFILE || exit $?
